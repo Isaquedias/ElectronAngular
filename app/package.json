@@ -1,0 +1,13 @@
+{
+  "name": "angular-electron",
+  "description": "Angular Electron sample",
+  "author": {
+    "name": "Isaque Dias",
+    "email": "ysaquedias@gmail.com"
+  },
+  "version": "19",
+  "main": "main.js",
+  "private": true,
+  "dependencies": {
+  }
+}
