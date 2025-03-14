@@ -1,6 +1,7 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
+import debug from 'electron-debug'; // Adicione esta linha
 
 let win: BrowserWindow | null = null;
 const args: string[] = process.argv.slice(1);
@@ -22,29 +23,35 @@ function createWindow(): BrowserWindow {
     },
   });
 
-  if (serve) {
-    const debug = require('electron-debug');
-    debug();
+  try {
+    if (serve) {
+      debug(); // Use a função importada
 
-    require('electron-reloader')(module);
-    win.loadURL('http://localhost:4200');
-  } else {
-    // Path when running electron executable
-    let pathIndex = './index.html';
+      require('electron-reloader')(module);
+      win.loadURL('http://localhost:4200');
+    } else {
+      // Path when running electron executable
+      let pathIndex = './index.html';
 
-    if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
-      // Path when running electron in local folder
-      pathIndex = '../dist/index.html';
+      if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
+        // Path when running electron in local folder
+        pathIndex = '../dist/index.html';
+      } else {
+        console.error('index.html not found');
+      }
+
+      const url = new URL(path.join('file:', __dirname, pathIndex));
+      win.loadURL(url.href);
     }
 
-    const url = new URL(path.join('file:', __dirname, pathIndex));
-    win.loadURL(url.href);
-  }
+    // Emitted when the window is closed.
+    win.on('closed', () => {
+      win = null;
+    });
 
-  // Emitted when the window is closed.
-  win.on('closed', () => {
-    win = null;
-  });
+  } catch (e) {
+    console.error('Failed to create window:', e);
+  }
 
   return win;
 }

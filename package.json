@@ -1,13 +1,30 @@
 {
-  "name": "electron-angular19",
-  "version": "0.0.0",
+  "name": "electron-angular",
+  "description": "Angular 19 com Electron 35 (TypeScript + SASS + Hot Reload)",
+  "version": "1.0.1",
+  "author": {
+    "name": "Isaque Dias",
+    "email": "ysaquedias@gmail.com"
+  },
+  "keywords": [
+    "angular 19",
+    "electron 35",
+    "typescript",
+    "sass",
+    "hot",
+    "reload"
+  ],
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "npm-run-all -p electron:serve ng:serve",
+    "ng:serve": "ng serve -o",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && electron . --serve",
+    "electron:serve-tsc": "tsc -p tsconfig.serve.json"
   },
+  "main": "app/main.js",
   "private": true,
   "dependencies": {
     "@angular/common": "^19.2.0",

@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "target": "es2017", // Atualizado para uma versão mais recente do ECMAScript
+    "types": [
+      "node",
+      "electron" // Adiciona tipos do Electron
+    ],
+    "lib": [
+      "es2017",
+      "es2016",
+      "es2015",
+      "dom"
+    ],
+    "strict": true, // Habilita verificações estritas do TypeScript
+    "noImplicitAny": true, // Evita o uso implícito de 'any'
+    "strictNullChecks": true, // Habilita verificações estritas de null
+    "esModuleInterop": true, // Habilita interoperabilidade com módulos ES
+    "skipLibCheck": true // Pula a checagem de tipos em arquivos de declaração
+  },
+  "files": [
+    "app/main.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
